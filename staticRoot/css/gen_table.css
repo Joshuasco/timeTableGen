@@ -1,0 +1,24 @@
+body {
+    font-size: smaller;
+}
+
+.time_container {
+    display: flex;
+    justify-content: space-around;
+}
+
+table td {
+    padding: .5em;
+    color: white;
+    background-color: blueviolet;
+}
+
+.times,
+.days {
+    font-weight: bold;
+}
+
+.courses {
+    color: black;
+    background-color: whitesmoke;
+}

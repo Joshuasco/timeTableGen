@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Executable Time table generator inspired by the igbo culture">
+    <title>Time Table Generator</title>
+    <style>
+        button,
+        button a {
+            list-style-type: none;
+            background-color: blueviolet;
+            border-radius: 10px;
+            padding: .5em;
+            border-color: blueviolet;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        
+        a:active {
+            background-color: whitesmoke;
+        }
+        
+        button:hover,
+        button a:hover {
+            background-color: white;
+            color: blueviolet
+        }
+        
+        input,
+        select {
+            border-color: blueviolet;
+            border-radius: 5px;
+            border-width: 2px;
+        }
+        
+        .submit {
+            padding: .5em;
+            color: blueviolet;
+            background-color: white;
+            border-radius: 10px;
+            border-color: blueviolet;
+        }
+        
+        .submit:hover {
+            background-color: blueviolet;
+            color: white;
+        }
+    </style>
+</head>
+
+<body onload="loading()">
+    <center style="color: blueviolet">
+        <h2>TIME TABLE GENERATOR</h2>
+        <div><b>Igba nkwu Algorithm</b></div>
+        <div><b>Inspired by the Igbo culture</b></div>
+    </center>
+    <hr><br><br>
+    <div>
+        <center>
+            <button><a href="{% url 'forms' %}" style="border-bottom: none;">HOME</a></button>
+            <button><a href="{% url 'room' %}" style="border-bottom: none;">ADD ROOMS</a></button>
+            <button><a href="{% url 'faculty' %}" style="border-bottom: none;">ADD FACULTY</a></button>
+            <button><a href="{% url 'department' %}" style="border-bottom: none;">ADD DEPARTMENT</a></button>
+            <button><a href="{% url 'lecturer' %}" style="border-bottom: none;">ADD LECTURERS</a></button>
+            <button><a href="{% url 'course' %}" style="border-bottom: none;">ADD COURSES</a></button>
+            <button><a href="{% url 'carry_over' %}" style="border-bottom: none;">ADD CARRYOVER COURSES</a></button>
+            <button><a href="{% url 'hold_class' %}" style="border-bottom: none;">ADD CLASSES</a></button>
+        </center>
+    </div>
+    <br><br>
+    <div>{%for message in messages %} {{message}} {% endfor %}
+    </div>
+    <div>
+        {% if form.as_p %}
+        <b>Form Data Entry
+    </b></div>
+    <form method="POST">
+        {% csrf_token %} {{form.as_p}}
+        <input class="submit" type="submit" value="submit">
+    </form>
+    {%endif%}
+    <div>
+        <br><br>
+        <center>
+            <button><a href="{% url 'generate' %}" style="border-bottom: none;">GENERATE TIMETABLE</a></button>
+        </center>
+    </div>
+</body>
+<script>
+    function loading() {
+        $window.alert("loading .....................")
+    }
+</script>
+
+</html>

@@ -1,0 +1,255 @@
+{% load static %} {% load var_setter %}{% load var_setter1 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/gen_table.css' %}">
+    <title>Document</title>
+    <script src="{% static 'script/jquery_com-3.5.1.min.js' %} "></script>
+</head>
+
+<body>
+    <center>
+        <h2>TIME TABLE GENERATOR</h2>
+        <div><b>Igba nkwu Algorithm</b></div>
+        <div><b>Inspired by the Igbo culture</b></div>
+        <hr><br> <br>
+
+        <div class="timecontainer">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><b> Days/Times</b></td>
+                        <td><b> Venue</b></td> {% for key,time in times.items %} {% if time == "BREAK" %}
+                        <td class="times"> 01-02pm </td> {%else%}
+                        <td class="times"> {{time}} </td> {% endif%}{% endfor %}
+                    </tr>
+                </thead>
+
+                {% for key, days in days.items %}
+                <tbody class="dayRows{{forloop.counter}}">
+        </div>
+        <tr class="day_rows {{forloop.counter}}">
+            <td class="days" rowspan="{{room_len}}">{{days}}</td>
+        </tr>
+        </div>
+        {% set_var forloop.counter as days_count %} {% for room in rooms %}
+        <tr class="rows{{forloop.counter}}">
+            {% set_var forloop.counter as num_count %}
+            <td class=" rooms ">{{room.name}}</td>
+            {%for datas in '0123456789'|make_list %} {%if forloop.counter == 6 %}
+            <td class="courses courses{{forloop.counter}}" style="color:red">Break</td>
+            {%else%}
+            <td class="courses courses{{forloop.counter}}"></td>
+            {%endif%} {%endfor%} {% for class in classes %} {% if class.0 == days %}
+            <script>
+                // console.log("{{class.0}}")
+            </script>
+            {% if class.3.name == room.name %} {% for key,time in times.items %} {% set_var1 forloop.counter as num_count1 %} {% set_var1 key|add:1 as keyPlus %} {%if class.2.course.unit == 1 %} {% if time == class.1 %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+                console.log(daysCounter);
+                console.log(counter);
+                console.log(counter1);
+                console.log('.dayRows' + daysCounter + " " + '.rows' + counter + '.courses' + counter1)
+                console.log("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>
+            {%endif%} {%elif class.2.course.unit == 2 %} {%if key == 1 %} {% if times.1.strip == class.1.0.strip and times.2.strip == class.1.1.strip %}
+            <script>
+                console.log("check if this is working ----------------------------------")
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+
+                console.log('.dayRows' + daysCounter + " " + '.rows' + counter + '.courses' + counter1)
+                console.log("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script> {%endif%}{%elif key == 2 %} {% if times.2.strip == class.1.0.strip and times.3.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+
+                console.log('.dayRows' + daysCounter + " " + '.rows' + counter + '.courses' + counter1)
+                console.log("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 3 %} {% if times.3.strip == class.1.0.strip and times.4.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 4 %} {% if times.4.strip == class.1.0.strip and times.5.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 5 %} {% if times.5.strip == class.1.0.strip and times.7.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 2;
+
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})");
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).text("{{class.2.course.code}} ({{class.2.course.unit}})");
+            </script>{%endif%} {%elif key == 6 %} {% if times.6.strip == class.1.0.strip and times.7.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 7 %} {% if times.7.strip == class.1.0.strip and times.8.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 8 %} {% if times.8.strip == class.1.0.strip and times.9.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 9 %} {% if times.9.strip == class.1.0.strip and times.10.strip == class.1.1.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%endif%}
+            <!-- 3 unit courses placement start here -->
+            {%elif class.2.course.unit == 3 %}
+            <!-- evaluation -->
+            {%if key == 1 %} {% if times.1.strip == class.1.0.strip and times.2.strip == class.1.1.strip and times.3.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "3")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 2 %} {% if times.2.strip == class.1.0.strip and times.3.strip == class.1.1.strip and times.4.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "3")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 3 %} {% if times.3.strip == class.1.0.strip and times.4.strip == class.1.1.strip and times.5.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "3")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 4 %} {% if times.4.strip == class.1.0.strip and times.5.strip == class.1.1.strip and times.7.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 2)).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 5 %} {% if times.5.strip == class.1.0.strip and times.7.strip == class.1.1.strip and times.8.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 2)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).attr("colspan", "2")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 6 %} {% if times.6.strip == class.1.0.strip and times.7.strip == class.1.1.strip and times.8.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "3")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 7 %} {% if times.7.strip == class.1.0.strip and times.8.strip == class.1.1.strip and times.9.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "3")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%} {%elif key == 8 %} {% if times.8.strip == class.1.0.strip and times.9.strip == class.1.1.strip and times.10.strip == class.1.2.strip %}
+            <script>
+                var daysCounter = "{{days_count}}";
+                var counter = "{{num_count}}";
+                var counter1 = "{{num_count1}}";
+                var intCount = parseInt(counter1) + 1;
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + intCount).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + (intCount + 1)).hide();
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).attr("colspan", "3")
+                $('.dayRows' + daysCounter + " " + '.rows' + counter + " " + '.courses' + counter1).text("{{class.2.course.code}} ({{class.2.course.unit}})")
+            </script>{%endif%}{%endif%}
+            <!-- end evaluation -->
+            {%endif%}
+            <!-- end 3 unit courses placement  -->
+            {%endfor%}{%endif%} {%endif%} {% endfor %}
+        </tr>
+        {% endfor %} </tbody>{% endfor %}
+        <script src="{% static 'script/jquery_com-3.5.1.min.js' %} "></script>
+        </table>
+        </div>
+        <br>
+        <div class="raw_datas">
+            <h3>RAW DATAS</h3>
+            {% for key,day in days.items %} {% endfor %} {% for class in classes %}
+            <p> {{class}}</p>
+            {% endfor %}
+        </div>
+    </center>
+</body>
+
+</html>
