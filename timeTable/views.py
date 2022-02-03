@@ -75,7 +75,7 @@ class faculty(CreateView):
     
     def get_success_url(self):
         messages.info(self.request, "falculty form submitted successfully")
-        return reverse_lazy('falculty')
+        return reverse_lazy('faculty')
 
 
 # generates data for each class holding
