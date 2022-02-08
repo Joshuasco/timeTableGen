@@ -43,6 +43,8 @@ class carryOver(models.Model):
     student_no =models.PositiveIntegerField( validators=[MinValueValidator(1), MaxValueValidator(50)]) 
     carryOver_level = models.PositiveIntegerField( validators=[MinValueValidator(100), MaxValueValidator(500)])
     current_level =models.PositiveIntegerField( validators=[MinValueValidator(100), MaxValueValidator(500)])
+    def __str__(self):
+        return str(self.course) 
 
 
 class hold_class(models.Model):

@@ -1,3 +1,4 @@
+#import all required librarise and datas
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -18,9 +19,7 @@ carryOvers = carryOver.objects.all();
 #initialize conflicts_no
 conflicts_no = 0
 
-# Create your views here.
-def forms(request):
-    return render(request, 'time_table.html')
+# room form
 class room(CreateView):
     model = room
     fields="__all__" 
@@ -28,7 +27,7 @@ class room(CreateView):
     def get_success_url(self):
         messages.info(self.request, "room form submitted successfully")
         return reverse_lazy('room')
-
+# lecture form
 class lecturer(CreateView):
     model = lecturer
     fields="__all__" 
@@ -38,32 +37,31 @@ class lecturer(CreateView):
         messages.info(self.request, "lecturer form submitted successfully")
         return reverse_lazy('lecturer')
 
+# courses form
 class course(CreateView):
     model = course
     fields="__all__" 
     template_name= "time_table.html"
     courses = course.objects.all()
- 
     def get_success_url(self):
         messages.info(self.request, "course form submitted successfully")
         return reverse_lazy('course')
 
+# carry over form
 class carryOver(CreateView):
     model = carryOver
     fields="__all__" 
     template_name= "time_table.html"
     courses = carryOver.objects.all()
- 
     def get_success_url(self):
         messages.info(self.request, "carry over form submitted successfully")
         return reverse_lazy('carry_over')
 
-# departmental datas
+# departmental form
 class department(CreateView):
     model = department
     fields="__all__" 
     template_name= "time_table.html"
-    
     def get_success_url(self):
         messages.info(self.request, "department form submitted successfully")
         return reverse_lazy('department')
@@ -72,24 +70,25 @@ class faculty(CreateView):
     model = faculty
     fields="__all__" 
     template_name= "time_table.html"
-    
     def get_success_url(self):
         messages.info(self.request, "falculty form submitted successfully")
         return reverse_lazy('faculty')
 
-
-# generates data for each class holding
+# class form
 class hold_class(CreateView):
     model = hold_class
-    fields="__all__" 
+    fields=['course', 'lecturer']
     template_name= "time_table.html"
     clas = hold_class.objects.all()
-   
     def get_success_url(self):
         messages.info(self.request, "hold_class form submitted successfully")
         return reverse_lazy('hold_class')
 
-#schedule time table
+#Render all forms on browser
+def forms(request):
+    return render(request, 'time_table.html')
+
+#schedule time table function
 def time_table_scheduler(request):
     rooms_len = len(rooms)-1
     classes_len= (len(classes)-1)
@@ -103,54 +102,48 @@ def time_table_scheduler(request):
     timing_len = len(timing)
     days_len = len(days)
     
-
+    #assign to days, time and venue to courses randomly
     for i in range(classes_len+1):
         newClasses.append([])
         rand_room=rooms[random.randint(0, rooms_len)]
         rand_day=days[random.randint(1, days_len)]
-        #print("course unit = {} ".format(classes[i].course.unit))
-
+    
         if classes[i].course.unit == 1 :
             rand_time = random.randint(1, timing_len)
             while (timing.get(rand_time) == "BREAK"):
                 rand_time = random.randint(1, timing_len)
-                #print("2 timing len={}, key= {}, val = {} ".format(timing_len, rand_time, timing.get(rand_time)))
             get_rand_time=timing[rand_time]
 
         elif classes[i].course.unit == 2 :
             rand_time = random.randint(1, timing_len)
             while ((timing.get(rand_time) == "BREAK") or( (rand_time+1) not in timing)):
                 rand_time = random.randint(1, timing_len)
-                #print("2 timing len={}, key= {}, val = {} ".format(timing_len, rand_time, timing.get(rand_time)))
             check_val=timing.get(rand_time+1) 
             if  check_val == "BREAK":
                 get_rand_time=timing[rand_time]+", "+ timing[rand_time+2]
                 get_rand_time=get_rand_time.split(',')
-                #print("got time {} = ".format(get_rand_time))
+           
             else:    
                 get_rand_time=timing[rand_time]+ ", " +timing[rand_time+1]
                 get_rand_time=get_rand_time.split(',')
-                #print("got time {} = ".format(get_rand_time))
 
         elif classes[i].course.unit == 3 :
             rand_time = random.randint(1, timing_len)
             while ((timing.get(rand_time) == "BREAK") or( (rand_time+2) not in timing)):
                 rand_time = random.randint(1, timing_len)
-                #print("2 timing len={}, key= {}, val = {} ".format(timing_len, rand_time, timing.get(rand_time)))
             check_val=timing.get(rand_time+1)
             check_val1=timing.get(rand_time+2) 
             if  check_val == "BREAK":
                 get_rand_time=timing[rand_time]+","+ timing[rand_time+2]+","+timing[rand_time+3]
                 get_rand_time = get_rand_time.split(",")
-                #print("got time {} = ".format(get_rand_time))
+          
             elif check_val1=="BREAK":
                 get_rand_time=timing[rand_time]+ ","+ timing[rand_time+1]+", "+timing[rand_time+3]
                 get_rand_time = get_rand_time.split(",")
-                #print("got time {} = ".format(get_rand_time))
+            
             else:    
                 get_rand_time=timing[rand_time] + ","+timing[rand_time+1]+ ","+timing[rand_time+2]
                 get_rand_time = get_rand_time.split(",")
-                #print("got time {} = ".format(get_rand_time))
 
         schedule_class=[rand_day, get_rand_time, classes[i], rand_room]
         newClasses[i].extend(schedule_class)
@@ -172,33 +165,57 @@ def time_table_scheduler(request):
                         if newClasses[i][1] in newClasses[j][1] and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
-                                #icreament conflicts_no by 1
                                 conflicts_no += 1
                             #if same lecturer at same time and different venue, increment conflicts_no by 1
                             if newClasses[i][2].lecturer == newClasses[j][2].lecturer:
                                 conflicts_no += 1
-                    #check conflict for 2 unit coourses
+                        #check if clashes in carryOver courses for computer engineering student only
+                        for carryOver in carryOvers:
+                            courseCode = carryOver.course.code.strip()
+                            department = courseCode[:2].capitalize()
+                            if  ( department == "CPE") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
+                                if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code:
+                                        if newClasses[i][1] in newClasses[j][1]:
+                                            conflicts_no += 1
+
+                    #check conflict for 2 unit courses
                     elif  newClasses[i][2].course.unit == 2:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
                         if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
-                                #icreament conflicts_no by 1
                                 conflicts_no += 1
                             #if same lecturer at same time and different venue, increment conflicts_no by 1
                             if newClasses[i][2].lecturer == newClasses[j][2].lecturer:
                                 conflicts_no += 1
+                        #check if clashes in carryOver courses for computer engineering student only
+                        for carryOver in carryOvers:
+                            courseCode = carryOver.course.code.strip()
+                            department = courseCode[:2].capitalize()
+                            if  ( department == "CPE") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
+                                if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code :
+                                        if (newClasses[i][1][0] in newClasses[j][1]) or (newClasses[i][1][1] in newClasses[j][1]):
+                                            conflicts_no += 1
+
                     #check conflict for 3 unit coourses
                     elif newClasses[i][2].course.unit == 3:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
                         if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
-                                #icreament conflicts_no by 1
                                 conflicts_no += 1
                             #if same lecturer at same time and different venue, increment conflicts_no by 1
                             if newClasses[i][2].lecturer == newClasses[j][2].lecturer:
                                 conflicts_no += 1
+                        #check if clashes in carryOver courses for computer engineering student only
+                        for carryOver in carryOvers:
+                            courseCode = carryOver.course.code.strip()
+                            department = courseCode[:2].capitalize()
+                            if  ( department == "CPE") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
+                                if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code:
+                                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
+                                            conflicts_no += 1
+
                     #raise error for courses above 3 unit
                     else:
                         messages.info(request, "can't handle courses above 3 units")
@@ -221,20 +238,18 @@ def generate(request):
     #initialize count to get number of times time table was reschedule for conflict free
     count=0
 
-    #call time_table_scheduler to reschedule time table  if conflict 
+    #call time_table_scheduler function to reschedule  time table  if conflict 
     while conflicts_no != 0 :
         print("--------------------CONFLICT NO = {}".format(conflicts_no))
         conflicts_no = 0
         context= time_table_scheduler(request)
         count += 1
-    
 
+    #number of times time_table was re-scheduled using randomization
     print("generated result at '''' {} '''' ops".format(count))
     print("--------------------CONFLICT NO = {} ----------------------------".format(conflicts_no))
-
-    print(" ---------- Generated timetable datas -----------------")
-    print(context)
-     
+    
+     #render the scheduled time table on browser
     return render(request, 'gen_table.html', context)
 
     
