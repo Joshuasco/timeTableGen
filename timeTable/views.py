@@ -146,7 +146,7 @@ def time_table_scheduler(request):
                 get_rand_time = get_rand_time.split(",")
 
         schedule_class=[rand_day, get_rand_time, classes[i], rand_room]
-        newClasses[i].extend(schedule_class)
+        newClasses[i].extend(schedule_class) #time table populated datas
 
     #conflict checker
     for i in range(0,len(newClasses)):
@@ -162,7 +162,7 @@ def time_table_scheduler(request):
                     #do this for course unit = 1
                     if newClasses[i][2].course.unit == 1:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
-                        if newClasses[i][1] in newClasses[j][1] and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
+                        if newClasses[i][1] in newClasses[j][1] and newClasses[i][2].course.code[:3] != newClasses[j][2].course.code[:3] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
                                 conflicts_no += 1
@@ -171,9 +171,9 @@ def time_table_scheduler(request):
                                 conflicts_no += 1
                         #check if clashes in carryOver courses for computer engineering student only
                         for carryOver in carryOvers:
-                            courseCode = carryOver.course.code.strip()
-                            department = courseCode[:2].capitalize()
-                            if  ( department == "CPE") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
+                            courseCode = carryOver.department.name.strip()
+                            department = courseCode[:8].upper()
+                            if  ( department == "COMPUTER") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
                                 if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code:
                                         if newClasses[i][1] in newClasses[j][1]:
                                             conflicts_no += 1
@@ -181,7 +181,7 @@ def time_table_scheduler(request):
                     #check conflict for 2 unit courses
                     elif  newClasses[i][2].course.unit == 2:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
-                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
+                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1]) and newClasses[i][2].course.code[:3] != newClasses[j][2].course.code[:3] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
                                 conflicts_no += 1
@@ -190,9 +190,9 @@ def time_table_scheduler(request):
                                 conflicts_no += 1
                         #check if clashes in carryOver courses for computer engineering student only
                         for carryOver in carryOvers:
-                            courseCode = carryOver.course.code.strip()
-                            department = courseCode[:2].capitalize()
-                            if  ( department == "CPE") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
+                            courseCode = carryOver.department.name.strip()
+                            department = courseCode[:8].upper()
+                            if  ( department == "COMPUTER") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
                                 if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code :
                                         if (newClasses[i][1][0] in newClasses[j][1]) or (newClasses[i][1][1] in newClasses[j][1]):
                                             conflicts_no += 1
@@ -200,7 +200,8 @@ def time_table_scheduler(request):
                     #check conflict for 3 unit coourses
                     elif newClasses[i][2].course.unit == 3:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
-                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
+                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and \
+                         newClasses[i][2].course.code[:3] != newClasses[j][2].course.code[:3] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
                                 conflicts_no += 1
@@ -209,9 +210,9 @@ def time_table_scheduler(request):
                                 conflicts_no += 1
                         #check if clashes in carryOver courses for computer engineering student only
                         for carryOver in carryOvers:
-                            courseCode = carryOver.course.code.strip()
-                            department = courseCode[:2].capitalize()
-                            if  ( department == "CPE") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
+                            courseCode = carryOver.department.name.strip()
+                            department = courseCode[:8].upper()
+                            if  ( department == "COMPUTER") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
                                 if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code:
                                         if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
                                             conflicts_no += 1

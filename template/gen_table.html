@@ -10,13 +10,18 @@
     <title>Document</title>
     <script src="{% static 'script/jquery_com-3.5.1.min.js' %} "></script>
 </head>
+<center>
+    <header>
+        <h2>TIME TABLE GENERATOR</h2>
+        <div><b>Igba nkwu Algorithm</b></div>
+        <div><b>Inspired by the Igbo culture</b></div><span><button style="color: white; background-color:blueviolet; print-color-adjust: exact;" onclick="docPrint()">Print</button></span>
+        <hr><br> <br>
+    </header>
+</center>
 
 <body>
     <center>
-        <h2>TIME TABLE GENERATOR</h2>
-        <div><b>Igba nkwu Algorithm</b></div>
-        <div><b>Inspired by the Igbo culture</b></div>
-        <hr><br> <br>
+
 
         <div class="timecontainer">
             <table class="table">
@@ -239,9 +244,20 @@
             {%endfor%}{%endif%} {%endif%} {% endfor %}
         </tr>
         {% endfor %} </tbody>{% endfor %}
-        <script src="{% static 'script/jquery_com-3.5.1.min.js' %} "></script>
+
         </table>
         </div>
+
+    </center>
+    <script src="{% static 'script/jquery_com-3.5.1.min.js' %} "></script>
+    <script>
+        function docPrint() {
+            window.print()
+        }
+    </script>
+</body>
+<center>
+    <footer>
         <br>
         <div class="raw_datas">
             <h3>RAW DATAS</h3>
@@ -249,7 +265,7 @@
             <p> {{class}}</p>
             {% endfor %}
         </div>
-    </center>
-</body>
+    </footer>
+</center>
 
 </html>

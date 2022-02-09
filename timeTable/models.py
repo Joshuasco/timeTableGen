@@ -31,7 +31,7 @@ class lecturer(models.Model):
 class course(models.Model):
     name= models.CharField(max_length= 50)
     code = models.CharField(max_length=50)
-    unit = models.IntegerField()
+    unit = models.PositiveIntegerField( validators=[MinValueValidator(1), MaxValueValidator(3)])
     student_no = models.IntegerField()
     department= models.ForeignKey(department, on_delete=models.CASCADE)
     def __str__(self):
