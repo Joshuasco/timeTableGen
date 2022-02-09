@@ -35,7 +35,7 @@ class course(models.Model):
     student_no = models.IntegerField()
     department= models.ForeignKey(department, on_delete=models.CASCADE)
     def __str__(self):
-        return (self.code + ", " +str(self.unit)+ ", " +str(self.student_no))
+        return (self.code + "(" +str(self.unit)+ "), " +str(self.student_no))
 
 class carryOver(models.Model):
     department= models.ForeignKey(department, on_delete=models.CASCADE)
@@ -50,8 +50,8 @@ class carryOver(models.Model):
 class hold_class(models.Model):
     course = models.ForeignKey(course, on_delete=models.CASCADE) #fetches courses and their lecturers from department
     lecturer = models.ForeignKey(lecturer, on_delete=models.CASCADE)
-    time = models.TimeField(blank=True, null=True) #assign to schedule randomly
-    room = models.ForeignKey(room, on_delete=models.CASCADE, blank=True, null=True ) #assign to schedule randomly
+    # time = models.TimeField(blank=True, null=True) #assign to schedule randomly
+    # room = models.ForeignKey(room, on_delete=models.CASCADE, blank=True, null=True ) #assign to schedule randomly
     def __str__(self):
         return (str(self.course) + ", "+  str(self.lecturer))
 
