@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import django_heroku
+#import django_heroku
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', '3834r2034tjrevef23')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["https://timetablegen.herokuapp.com/"]
+ALLOWED_HOSTS = ["*","https://timetablegen.herokuapp.com/"]
 
 
 # Application definition
@@ -80,21 +80,30 @@ WSGI_APPLICATION = 'time_table.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
+try:
+      DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+    
+except:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'time_table_db',
+        'NAME':  'timeTable_db',
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': os.environ.get('password')
+        'PASSWORD': os.environ.get('password', 'Joshua.Odigbo.1995')
 
     }
-}
+    }
 
-import dj_database_url
-db_from_env=dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+    import dj_database_url
+    db_from_env=dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -131,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[BASE_DIR/'staticDir']
-STATIC_ROOT =BASE_DIR/'staticRoot'
+STATIC_ROOT = BASE_DIR/'staticRoot'
 
 
 # Default primary key field type
@@ -139,4 +148,4 @@ STATIC_ROOT =BASE_DIR/'staticRoot'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

@@ -15,7 +15,7 @@ courses=course.objects.all()
 departments =department.objects.all() 
 facultys=faculty.objects.all()
 classes= hold_class.objects.all()
-carryOvers = carryOver.objects.all();
+carryOvers = carryOver.objects.all()
 #initialize conflicts_no
 conflicts_no = 0
 
@@ -156,6 +156,8 @@ def time_table_scheduler(request):
             conflicts_no += 1
    
         for j in range(0, len(newClasses)):
+            if ("WED" in newClasses[i][0] )and ("02-03PM" or "03-04PM" or "04-05PM" or "05-06PM" in newClasses[i][1]):
+                conflicts_no += 1
             if j>=i:
                 #check if same day exits for different class
                 if newClasses[i][0] == newClasses[j][0]:
@@ -181,7 +183,8 @@ def time_table_scheduler(request):
                     #check conflict for 2 unit courses
                     elif  newClasses[i][2].course.unit == 2:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
-                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1]) and newClasses[i][2].course.code[:3] != newClasses[j][2].course.code[:3] :
+                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1]) and newClasses[i][2].course.code[:3] \
+                        != newClasses[j][2].course.code[:3] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
                                 conflicts_no += 1
@@ -200,8 +203,8 @@ def time_table_scheduler(request):
                     #check conflict for 3 unit coourses
                     elif newClasses[i][2].course.unit == 3:
                         #check if same 'meetingTime and different class object i.e dempartment(using the class id)' of a class exists for another class;
-                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and \
-                         newClasses[i][2].course.code[:3] != newClasses[j][2].course.code[:3] :
+                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1])\
+                             and newClasses[i][2].course.code[:3] != newClasses[j][2].course.code[:3] :
                             #check if same room or venue
                             if newClasses[i][3] == newClasses[j][3]:
                                 conflicts_no += 1
@@ -214,7 +217,8 @@ def time_table_scheduler(request):
                             department = courseCode[:8].upper()
                             if  ( department == "COMPUTER") and (carryOver.student_no > 4) and carryOver.current_level > 200 :
                                 if newClasses[i][2].course.code.strip() == courseCode and newClasses[i][2].course.code != newClasses[j][2].course.code:
-                                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
+                                        if (newClasses[i][1][0] in newClasses[j][1] or newClasses[i][1][1] in newClasses[j][1] or newClasses[i][1][2] \
+                                            in newClasses[j][1]) and newClasses[i][2].course.code[:2] != newClasses[j][2].course.code[:2] :
                                             conflicts_no += 1
 
                     #raise error for courses above 3 unit
@@ -245,6 +249,8 @@ def generate(request):
         conflicts_no = 0
         context= time_table_scheduler(request)
         count += 1
+        if count == 300:
+            break
 
     #number of times time_table was re-scheduled using randomization
     print("generated result at '''' {} '''' ops".format(count))
@@ -252,7 +258,5 @@ def generate(request):
     
      #render the scheduled time table on browser
     return render(request, 'gen_table.html', context)
-
-    
 
     

@@ -2,6 +2,10 @@ body {
     font-size: smaller;
 }
 
+.table {
+    background-color: black !important;
+}
+
 .time_container {
     display: flex;
     justify-content: space-around;
@@ -11,6 +15,8 @@ table td {
     padding: .5em;
     color: white;
     background-color: blueviolet;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .times,
@@ -19,6 +25,6 @@ table td {
 }
 
 .courses {
-    color: black;
+    color: blue;
     background-color: whitesmoke;
 }
